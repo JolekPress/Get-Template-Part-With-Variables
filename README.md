@@ -1,5 +1,5 @@
-# Pass-Variables-To-Get-Template-Part
-A simple WordPress plugin that works like get_template_part but allows you to pass variables.
+# Get Template Part with Variables
+A simple WordPress plugin that works like ```get_template_part()``` but allows you to pass variables.
 
 Example:
 
@@ -12,15 +12,15 @@ $variables = [
 jpr_get_template_part_with_vars('author', 'info', $variables);
 
 
-// In content-page.php:
+// In author-info.php:
 echo "
-<div class="$class">
+<div class='$class'>
     <span>$name</span>
 </div>
 ";
 
 // Would output:
-<div class="featuredAuthor">
+<div class='featuredAuthor'>
     <span>John</span>
 </div>
 ```
