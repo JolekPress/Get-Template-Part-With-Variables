@@ -1,5 +1,5 @@
 # Get Template Part with Variables
-A simple WordPress plugin that works like ```get_template_part()``` but allows you to pass variables.
+A simple WordPress plugin that works like ```get_template_part()``` but allows you to pass variables to the rendered template.
 
 Example:
 
