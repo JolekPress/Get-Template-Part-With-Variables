@@ -11,6 +11,6 @@ Author URI: http://jolekpress.com
 
 require 'template-part-with-vars-classes/TemplateHelper.php';
 
-function jpr_get_template_part_with_vars($slug, $name = null, $variables_array = []) {
-    JP_Template_Part_With_Vars::get_template_part_with_named_variables($slug, $name, $variables_array);
+function jpr_get_template_part_with_vars($slug, $name = null, $variablesArray = []) {
+    JPR\TemplatePartWithVars\Helper::getTemplatePartWithNamedVariables($slug, $name, $variablesArray);
 }

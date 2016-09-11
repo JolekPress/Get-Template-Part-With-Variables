@@ -9,10 +9,10 @@ class Helper
      *
      * @param       $slug
      * @param null $name
-     * @param array $named_variables
+     * @param array $namedVariables
      * @throws \Exception
      */
-    public static function get_template_part_with_named_variables($slug, $name = null, $named_variables = [])
+    public static function getTemplatePartWithNamedVariables($slug, $name = null, array $namedVariables = [])
     {
         // Taken from standard get_template_part function
         \do_action("get_template_part_{$slug}", $slug, $name);
@@ -42,18 +42,35 @@ class Helper
         }
         // End standard WordPress behavior
 
-        foreach ($named_variables as $variable_name => $value) {
-            if (!is_string($variable_name)) {
+        foreach ($namedVariables as $variableName => $value) {
+            if (self::isVariableNameValid($variableName)) {
+                trigger_error('Variable names must be valid. Skipping ' . $variableName . ' because it is not a valid variable name.');
                 continue;
             }
 
-            if (isset($$variable_name)) {
-                throw new \Exception("The variable '$variable_name' is already defined, probably by WordPress. Choose a different variable name.");
+            if (isset($$variableName)) {
+                trigger_error("$variableName already existed, probably set by WordPress, so it wasn't set to $value like you wanted. Instead it is set to: " . print_r($$variableName, true));
+                continue;
             }
 
-            $$variable_name = $value;
+            $$variableName = $value;
         }
 
         require $template;
+    }
+
+    /**
+     * Check if the provided $variableName is valid.
+     *
+     * @param $variableName
+     * @return bool
+     */
+    private static function isVariableNameValid($variableName)
+    {
+        if (preg_match('/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/',$variableName)) {
+            return true;
+        }
+
+        return false;
     }
 }
