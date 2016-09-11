@@ -43,8 +43,8 @@ class Helper
         // End standard WordPress behavior
 
         foreach ($namedVariables as $variableName => $value) {
-            if (self::isVariableNameValid($variableName)) {
-                trigger_error('Variable names must be valid. Skipping ' . $variableName . ' because it is not a valid variable name.');
+            if (!self::isVariableNameValid($variableName)) {
+                trigger_error('Variable names must be valid. Skipping "' . $variableName . '" because it is not a valid variable name.');
                 continue;
             }
 
@@ -67,7 +67,7 @@ class Helper
      */
     private static function isVariableNameValid($variableName)
     {
-        if (preg_match('/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/',$variableName)) {
+        if (preg_match('/^[a-zA-Z_][a-zA-Z0-9_\x7f-\xff]*/', $variableName)) {
             return true;
         }
 
